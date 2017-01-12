@@ -53,8 +53,9 @@ vectorizer.fit(rechtspraak_train_text)
 
 print("Transforming str to ints")
 vocabulary = vectorizer.get_feature_names()
-rechtspraak_train_text = [[vocabulary.index(word) for word in text_row if word in vocabulary] for text_row in rechtspraak_train_text]
-rechtspraak_test_text = [[vocabulary.index(word) for word in text_row if word in vocabulary] for text_row in rechtspraak_test_text]
+vocabulary = {el:i for i,el in enumerate(vocabulary)}
+rechtspraak_train_text = [[vocabulary[word] for word in text_row.split() if word in vocabulary] for text_row in rechtspraak_train_text]
+rechtspraak_test_text = [[vocabulary[word] for word in text_row.split() if word in vocabulary] for text_row in rechtspraak_test_text]
 
 print("Writing to files")
 np.save("train_data_vec", rechtspraak_train_text)
